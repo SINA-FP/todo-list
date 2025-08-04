@@ -12,11 +12,27 @@ class TodoList {
         this.input = document.querySelector('#itemInput');
         this.addBtn = document.querySelector('#addButton');
         this.clearBtn = document.querySelector('#clearButton');
+        this.initThemeToggle();
 
         this.addBtn.addEventListener('click', () => this.addTodo());
         this.clearBtn.addEventListener('click', () => this.clearTodos());
 
         this.render();
+    }
+
+    initThemeToggle() {
+        const toggleBtn = document.querySelector('#toggleTheme');
+        const savedTheme = localStorage.getItem('theme');
+
+        if (savedTheme === 'dark') {
+            document.body.classList.add('dark-mode');
+        }
+
+        toggleBtn.addEventListener('click', () => {
+            document.body.classList.toggle('dark-mode');
+            const isDark = document.body.classList.contains('dark-mode');
+            localStorage.setItem('theme', isDark ? 'dark' : 'light');
+        });
     }
 
     render() {
