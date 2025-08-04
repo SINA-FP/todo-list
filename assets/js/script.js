@@ -23,17 +23,23 @@ class TodoList {
         this.container.innerHTML = '';
         this.todos.forEach((todo, index) => {
             const li = document.createElement('li');
-            li.className = `list-group-item d-flex justify-content-between align-items-center ${todo.isComplete ? 'list-group-item-success' : ''}`;
+            li.className = `list-group-item d-flex justify-content-between align-items-center shadow-sm mb-2 rounded ${todo.isComplete ? 'list-group-item-success' : ''
+                }`;
 
             const title = document.createElement('span');
             title.textContent = todo.title;
-            if (todo.isComplete) title.style.textDecoration = 'line-through';
+            title.className = 'fw-semibold';
+            if (todo.isComplete) {
+                title.style.textDecoration = 'line-through';
+                title.classList.add('text-muted');
+            }
 
             const btnGroup = document.createElement('div');
 
             const completeBtn = document.createElement('button');
-            completeBtn.className = 'btn btn-sm btn-success me-2';
-            completeBtn.textContent = '✔';
+            completeBtn.className = 'btn btn-sm btn-outline-success me-2';
+            completeBtn.innerHTML = '<i class="fas fa-check"></i>';
+            completeBtn.title = 'Mark as complete';
             completeBtn.addEventListener('click', () => {
                 todo.isComplete = !todo.isComplete;
                 this.save();
@@ -41,8 +47,9 @@ class TodoList {
             });
 
             const removeBtn = document.createElement('button');
-            removeBtn.className = 'btn btn-sm btn-danger';
-            removeBtn.textContent = '🗑';
+            removeBtn.className = 'btn btn-sm btn-outline-danger';
+            removeBtn.innerHTML = '<i class="fas fa-trash"></i>';
+            removeBtn.title = 'Remove task';
             removeBtn.addEventListener('click', () => {
                 this.todos.splice(index, 1);
                 this.save();
@@ -62,13 +69,17 @@ class TodoList {
             this.input.value = '';
             this.save();
             this.render();
+        } else {
+            alert('Please enter a task!');
         }
     }
 
     clearTodos() {
-        this.todos = [];
-        this.save();
-        this.render();
+        if (confirm('Are you sure you want to clear all tasks?')) {
+            this.todos = [];
+            this.save();
+            this.render();
+        }
     }
 
     save() {
