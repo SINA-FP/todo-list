@@ -1,6 +1,3 @@
-const myModal = document.getElementById('myModal')
-const myInput = document.getElementById('myInput')
-
 class Todo {
     constructor(title) {
         this.title = title;
@@ -104,13 +101,10 @@ class TodoList {
     }
 
     clearTodos() {
-        if (confirm(this.showModal('All tasks cleared!', false))) {
-            this.todos = [];
-            this.save();
-            this.render();
-        }
-
-        
+        this.todos = [];
+        this.save();
+        this.render();
+        this.showModal('All tasks cleared!', false);
     }
 
     save() {
