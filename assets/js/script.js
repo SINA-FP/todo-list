@@ -1,3 +1,6 @@
+const myModal = document.getElementById('myModal')
+const myInput = document.getElementById('myInput')
+
 class Todo {
     constructor(title) {
         this.title = title;
@@ -15,10 +18,19 @@ class TodoList {
         this.initThemeToggle();
 
         this.addBtn.addEventListener('click', () => this.addTodo());
-        this.clearBtn.addEventListener('click', () => this.clearTodos());
+        this.clearBtn.addEventListener('click', () => this.clearTodos())
 
         this.render();
     }
+
+    showModal(message, isSuccess = true) {
+        const modalBody = document.getElementById('modalBody');
+        modalBody.textContent = message;
+        modalBody.className = isSuccess ? 'modal-body text-success' : 'modal-body text-danger';
+
+        const modal = new bootstrap.Modal(document.getElementById('feedbackModal'));
+        modal.show();
+    };
 
     initThemeToggle() {
         const toggleBtn = document.querySelector('#toggleTheme');
@@ -85,17 +97,20 @@ class TodoList {
             this.input.value = '';
             this.save();
             this.render();
+            this.showModal('Task added successfully!');
         } else {
-            alert('Please enter a task!');
+            this.showModal('Add a todo')
         }
     }
 
     clearTodos() {
-        if (confirm('Are you sure you want to clear all tasks?')) {
+        if (confirm(this.showModal('All tasks cleared!', false))) {
             this.todos = [];
             this.save();
             this.render();
         }
+
+        
     }
 
     save() {
