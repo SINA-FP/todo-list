@@ -96,7 +96,7 @@ class TodoList {
             this.render();
             this.showModal('Task added successfully!');
         } else {
-            this.showModal('Add a todo')
+            this.showModal('Write a todo first.')
         }
     }
 

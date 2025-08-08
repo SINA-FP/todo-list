@@ -20,13 +20,17 @@ body.dark-mode .list-group-item {
 body.dark-mode input,
 body.dark-mode .form-control {
     background-color: #2a2a2a;
-    color: #fff;
+    color: #ccc;
     border-color: #444;
+}
+
+body.dark-mode ::placeholder {
+    color: #ccc;
 }
 
 body.dark-mode .btn {
     border-color: #555;
-    color: #fff;
+    color: #ccc;
 }
 
 body.dark-mode .btn-outline-dark:hover {
